@@ -16,6 +16,22 @@ const userSchema = new Schema({
         required: true,
         select: false
     },
+    followers: [{
+        type: Schema.Types.ObjectId,
+        reg: "User"
+    }],
+    following: [{
+        type: Schema.Types.ObjectId,
+        reg: "User"
+    }],
+    likedPosts: [{
+        type: Schema.Types.ObjectId,
+        reg: "Post"
+    }],
+    comments: [{
+        type: Schema.Types.ObjectId,
+        reg: "Comment"
+    }]
 });
 
 module.exports = mongoose.model('User', userSchema);

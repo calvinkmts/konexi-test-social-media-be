@@ -3,26 +3,28 @@ const router = express.Router();
 
 const postController = require('../controllers/userController');
 
-router.get('/', postController.getPosts);
+const isAuthorized = require('../middlewares/isAuthorized');
 
-router.post('/', postController.createPost);
+router.get('/', isAuthorized, postController.getPosts);
 
-router.get('/:postId', postController.getPost);
+router.post('/', isAuthorized, postController.createPost);
 
-router.delete('/:postId', postController.deletePost);
+router.get('/:postId', isAuthorized, postController.getPost);
 
-router.get('/users/:userId/posts', postController.getUserPosts);
+router.delete('/:postId', isAuthorized, postController.deletePost);
 
-router.get('/:postId/comments', postController.getPostComments);
+router.get('/users/:userId/posts', isAuthorized, postController.getUserPosts);
 
-router.post('/:postId/comments', postController.createPostComment);
+router.get('/:postId/comments', isAuthorized, postController.getPostComments);
 
-router.delete('/:postId/comments/:commentId', postController.deletePostComment);
+router.post('/:postId/comments', isAuthorized, postController.createPostComment);
 
-router.post('/:postId/likes', postController.likePost);
+router.delete('/:postId/comments/:commentId', isAuthorized, postController.deletePostComment);
 
-router.delete('/:postId/likes', postController.unlikePost);
+router.post('/:postId/likes', isAuthorized, postController.likePost);
 
-router.get('/:postId/likes', postController.getPostLike);
+router.delete('/:postId/likes', isAuthorized, postController.unlikePost);
+
+router.get('/:postId/likes', isAuthorized, postController.getPostLike);
 
 module.exports = router;
